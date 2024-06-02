@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 #include <cstdint>
-#include <cstdlib> // For system() - necessary to run the injected executable
+#include <cstdlib> 
 
 const std::string version = "0.0.0.2";
 
