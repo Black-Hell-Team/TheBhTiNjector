@@ -9,12 +9,12 @@ void concatenateFiles(const std::string& outputFile, const std::string& file1, c
     output << input1.rdbuf();
     output << input2.rdbuf();
 
-    std::cout << "Arquivos concatenados com sucesso em " << outputFile << std::endl;
+    std::cout << "Successfully concatenated files in: " << outputFile << std::endl;
 }
 
 int main(int argc, char* argv[]) {
     if (argc < 4) {
-        std::cerr << "Uso: " << argv[0] << " <first_file> <second_file> <output_file>" << std::endl;
+        std::cerr << "Use: " << argv[0] << " <first_file> <second_file> <output_file>" << std::endl;
         return 1;
     }
 
