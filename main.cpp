@@ -25,7 +25,7 @@ void displayHelp() {
                                                                  |  $$$$$$/                                                  
                                                                   \______/                                                   
 )" << std::endl;
-    std::cout << "Use: program -o <output_file> [-b <binary>] [-i <image>] [-c <icon>] [-r] [-x] -s <shellcode> [-e]" << std::endl;
+    std::cout << "Use: program -o <output_file> [-b <binary>] [-i <image>] [-c <icon>] [-r] [-x] -s <shellcode> [-e] [-t <triple>]" << std::endl;
     std::cout << "  -o <output_file>   Specifies the name of the output file." << std::endl;
     std::cout << "  -b <binary>        Specifies a binary file to be concatenated." << std::endl;
     std::cout << "  -i <image>         Specifies an image to be concatenated." << std::endl;
@@ -34,6 +34,7 @@ void displayHelp() {
     std::cout << "  -r                 Restores the image to its original state after injection." << std::endl;
     std::cout << "  -x                 Skips shellcode injection." << std::endl;
     std::cout << "  -e                 Executes the file after concatenation." << std::endl;
+    std::cout << "  -t <triple>        Injects shellcode into more than three concatenated files." << std::endl;
     std::cout << "  -h                 Displays help message." << std::endl;
     std::cout << "  -v                 Displays version information." << std::endl;
 }
@@ -195,6 +196,7 @@ int main(int argc, char* argv[]) {
     bool restoreImage = false;
     bool runExecutable = false;
     bool injectShellcodeFlag = true;
+    bool tripleInjection = false;
 
     for (int i = 1; i < argc; i += 2) {
         std::string option = argv[i];
@@ -228,6 +230,14 @@ int main(int argc, char* argv[]) {
             injectShellcodeFlag = false;
         } else if (option == "-e") {
             runExecutable = true;
+        } else if (option == "-t") {
+            int tripleValue = std::stoi(filename);
+            if (tripleValue > 3) {
+                tripleInjection = true;
+            } else {
+                std::cerr << "Triple injection requires more than 3 concatenated files." << std::endl;
+                return 1;
+            }
         } else {
             std::cerr << "Invalid Option: " << option << std::endl;
             return 1;
@@ -271,7 +281,7 @@ int main(int argc, char* argv[]) {
         if (isIcon(iconFile)) {
             addIconToExecutable(outputFile, iconFile);
         } else {
-            std::cerr << "The file " << iconFile << " is not a valid .ico file." << std::endl;
+           std::cerr << "The file " << iconFile << " is not a valid .ico file." << std::endl;
             return 1;
         }
     }
