@@ -21,7 +21,7 @@ void displayHelp() {
                                                                  |  $$$$$$/                                                  
                                                                   \______/                                                   
 )" << std::endl;
-    std::cout << "Use: program -o <output_file> [-b <binary>] [-i <image>] [-c <icon>] [-r] [-n] -s <shellcode>" << std::endl;
+    std::cout << "Use: program -o <output_file> [-b <binary>] [-i <image>] [-c <icon>] [-r] [-n] [-x] -s <shellcode>" << std::endl;
     std::cout << "  -o <output_file>   Specifies the name of the output file." << std::endl;
     std::cout << "  -b <binary>        Specifies a binary file to be concatenated." << std::endl;
     std::cout << "  -i <image>         Specifies an image to be concatenated." << std::endl;
@@ -29,6 +29,7 @@ void displayHelp() {
     std::cout << "  -s <shellcode>     Specifies the file containing the shellcode to be injected." << std::endl;
     std::cout << "  -r                 Restores the image to its original state after injection." << std::endl;
     std::cout << "  -n                 Does not run the executable after injection." << std::endl;
+    std::cout << "  -x                 Skips shellcode injection." << std::endl;
     std::cout << "  -h                 Displays help message." << std::endl;
     std::cout << "  -v                 Displays version information." << std::endl;
 }
