@@ -20,7 +20,8 @@ The shortest definition is, a shellcode is a small piece of code used as a paylo
 First you compile the shellcode (this may vary depending on your machine) for example: 
 
 ```nasm -f elf32 -o shellcode.o shellcodeWin.asm```
-   ```ld -m elf_i386 -o shellcode shellcode.o```
+   
+```ld -m elf_i386 -o shellcode shellcode.o```
 
 Then, you compile the main code with your preferred compiler, in this case I will use G++ for example: ```g++ -o main.exe main.cpp```
 
