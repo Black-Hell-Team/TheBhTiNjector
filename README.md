@@ -24,7 +24,7 @@ Then, you compile the main code with your preferred compiler, in this case I wil
 
 After you compile, you can run for example: ```./main.exe -h``` which will give you all the options of what to do and how to do it.
 
-<img src="img/banner2.jpg">
+<img src="img/banner3.jpg">
 
 ## running the script
 After that, you can concatenate the files and inject the shellcode, as in this example:
