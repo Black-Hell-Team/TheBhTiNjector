@@ -1,6 +1,7 @@
 # TheBhTiNjector
 TheBhTiNjector is a file binder that concatenates files while preserving their functionality
-[![codecov](https://codecov.io/gh/filipdutescu/modern-cpp-template/branch/master/graph/badge.svg)](https://codecov.io/gh/filipdutescu/modern-cpp-template)
+
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.]
 
 
 ## And how does it work?
@@ -28,3 +29,9 @@ After that, you can concatenate the files and inject the shellcode, as in this e
 
 You can also concatenate binary with binary, as in this example:
 <img src="img/execute.png">
+
+## How do I contribute to this project?
+To contribute to this project you need to make a pull request, and then give us a detailed description of what you want to add or change and we at the black hell team will review the code and authorize it, sometimes editing the implementation a little to maintain good programming practices.
+
+## License
+[MIT](https://github.com/Black-Hell-Team/TheBhTiNjector/blob/main/LICENSE)
