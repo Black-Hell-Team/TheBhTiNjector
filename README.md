@@ -20,6 +20,9 @@ First you compile the shellcode (this may vary depending on your machine) for ex
    
 ```ld -m elf_i386 -o shellcode shellcode.o```
 
+or: 
+
+```nasm -f win32 shellcodeWin.asm -o shellcode.obj```
 Then, you compile the main code with your preferred compiler, in this case I will use G++ for example: ```g++ -o main.exe main.cpp```
 
 After you compile, you can run for example: ```./main.exe -h``` which will give you all the options of what to do and how to do it.
