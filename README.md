@@ -23,10 +23,12 @@ First you compile the shellcode (this may vary depending on your machine) for ex
 Then, you compile the main code with your preferred compiler, in this case I will use G++ for example: ```g++ -o main.exe main.cpp```
 
 After you compile, you can run for example: ```./main.exe -h``` which will give you all the options of what to do and how to do it.
+
 <img src="img/banner2.jpg">
 
 ## running the script
 After that, you can concatenate the files and inject the shellcode, as in this example:
+
 <img src="img/runningscript.jpg">
 
 You can also concatenate binary with binary, as in this example:
