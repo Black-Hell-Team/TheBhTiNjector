@@ -33,7 +33,7 @@ After that, you can concatenate the files and inject the shellcode, as in this e
 <img src="img/runningscript.jpg">
 
 You can also concatenate binary with binary, as in this example:
-<img src="img/execute.png">
+<img src="img/skip.png">
 
 ## How do I contribute to this project?
 To contribute to this project you need to make a pull request, and then give us a detailed description of what you want to add or change and we at the black hell team will review the code and authorize it, sometimes editing the implementation a little to maintain good programming practices.
