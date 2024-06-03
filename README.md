@@ -14,7 +14,7 @@ The shortest definition is, a shellcode is a small piece of code used as a paylo
 -- Poor Testing: If you are not seeing the expected behavior when opening the image, it is possible that your testing is incomplete or inadequate. Make sure you are testing in a suitable environment and that you are observing the results correctly.
 
 ## And how do I use it?
-First you compile the shellcode (this may vary depending on your machine) for example: 
+First you compile the shellcode, enter the shellcodes directory with ```cd shellcodes```, after entering you can compile them (this may vary depending on your machine) for example: 
 
 ```nasm -f elf32 -o shellcode.o shellcodeWin.asm```
    
@@ -23,6 +23,8 @@ First you compile the shellcode (this may vary depending on your machine) for ex
 or: 
 
 ```nasm -f win32 shellcodeWin.asm -o shellcode.obj```
+
+Then you move the compiled shellcodes to the main directory.
 
 Then, you compile the main code with your preferred compiler, in this case I will use G++ for example: ```g++ -o main.exe main.cpp```
 
