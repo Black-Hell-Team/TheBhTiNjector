@@ -1,4 +1,4 @@
-# TheBhTiNjector
+# TheBhTiNjector <img img src="https://media.giphy.com/media/12oufCB0MyZ1Go/giphy.gif" width="50">
 TheBhTiNjector is a file binder that concatenates files while preserving their functionality
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.]
@@ -17,9 +17,13 @@ The shortest definition is, a shellcode is a small piece of code used as a paylo
 -- Poor Testing: If you are not seeing the expected behavior when opening the image, it is possible that your testing is incomplete or inadequate. Make sure you are testing in a suitable environment and that you are observing the results correctly.
 
 ## And how do I use it?
-First you compile the shellcode (this may vary depending on your machine) for example: ```nasm -f elf32 -o shellcode.o shellcodeWin.asm
-                                                                                          ld -m elf_i386 -o shellcode shellcode.o```
+First you compile the shellcode (this may vary depending on your machine) for example: 
+
+```nasm -f elf32 -o shellcode.o shellcodeWin.asm```
+   ```ld -m elf_i386 -o shellcode shellcode.o```
+
 Then, you compile the main code with your preferred compiler, in this case I will use G++ for example: ```g++ -o main.exe main.cpp```
+
 After you compile, you can run for example: ```./main.exe -h``` which will give you all the options of what to do and how to do it.
 <img src="img/banner.jpg">
 
