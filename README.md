@@ -1,4 +1,4 @@
-# TheBhTiNjector <img img src="https://media.giphy.com/media/12oufCB0MyZ1Go/giphy.gif" width="50"> <img src="img/cplusplus.svg" width="30">
+# TheBhTiNjector <img img src="https://media.giphy.com/media/12oufCB0MyZ1Go/giphy.gif" width="50"> <img src="img/cplusplus.svg" width="30"> [![GitHub followers](https://img.shields.io/github/followers/Ch4r0nN?label=Follow&style=social)](https://github.com/Ch4r0nN)
 TheBhTiNjector is a file binder that concatenates files while preserving their functionality.
 
 ## And how does it work?
