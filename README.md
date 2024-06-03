@@ -1,8 +1,5 @@
 # TheBhTiNjector <img img src="https://media.giphy.com/media/12oufCB0MyZ1Go/giphy.gif" width="50">
-TheBhTiNjector is a file binder that concatenates files while preserving their functionality
-
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.]
-
+TheBhTiNjector is a file binder that concatenates files while preserving their functionality.
 
 ## And how does it work?
 Basically, it concatenates multiple types of files, which can be executables, images or executables with images, uniting them and having the possibility of injecting shellcode.
@@ -39,4 +36,4 @@ You can also concatenate binary with binary, as in this example:
 To contribute to this project you need to make a pull request, and then give us a detailed description of what you want to add or change and we at the black hell team will review the code and authorize it, sometimes editing the implementation a little to maintain good programming practices.
 
 ## License
-[MIT](https://github.com/Black-Hell-Team/TheBhTiNjector/blob/main/LICENSE)
+<img src="https://img.shields.io/badge/License-MIT-blue?color=blue&style=for-the-badge" alt="License" />
