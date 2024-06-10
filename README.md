@@ -1,4 +1,4 @@
-# TheBhTiNjector <img img src="https://media.giphy.com/media/12oufCB0MyZ1Go/giphy.gif" width="50">![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white) [![GitHub followers](https://img.shields.io/github/followers/Ch4r0nN?label=Follow&style=social)](https://github.com/Ch4r0nN)
+# TheBhTiNjector <img img src="https://media.giphy.com/media/12oufCB0MyZ1Go/giphy.gif" width="50">![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white) [![GitHub followers](https://img.shields.io/github/followers/Ch4r0nN?label=Follow&style=social)](https://github.com/Ch4r0nN) [![GitHub Release](https://img.shields.io/github/release/Black-Hell-Team/banner3.png)](https://github.com/Black-Hell-Team/TheBhTiNjector/releases)
 TheBhTiNjector is a file binder that concatenates files while preserving their functionality.
 
 ## And how does it work?
